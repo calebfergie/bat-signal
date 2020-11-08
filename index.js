@@ -15,9 +15,8 @@ const clientSecret = process.env.GH_CLIENT_SECRET //ENVVVV
 const PORT = process.env.PORT || 3000;
 var http = require('http').createServer(app);
 
-const { Client } = require('pg');
-
-const client = new Client({
+const { Pool } = require('pg');
+const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
@@ -56,6 +55,18 @@ app.get('/oauth/redirect', (req, res) => {
   })
 })
 
+app.get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM test_table');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
 
 app.get('/local/', (req, res) => {
   const io = require('socket.io')(http);
@@ -63,46 +74,57 @@ app.get('/local/', (req, res) => {
     , discovery = v3.discovery
     , hueApi = v3.api;
   const model = require('node-hue-api').v3.model;
-  const LightState = v3.lightStates.LightState;
-  const USERNAME = process.env.HUE_CLIENT
-    // The name of the light we wish to retrieve by name
-    , COLOR_GLOBE = 3
-    , SENSOR = 10;
 
-    // function checkLocal(hub) {
-    //   v3.discovery.nupnpSearch()
-    //     .then(searchResults => {
-    //       return v3.api.createLocal(hub).connect(USERNAME);
-    //     })
-    //       .then(api => {
-    //             // console.log(api);
-    //             return api.configuration.getConfiguration();
-    //             })
-    //     .then(config => {
-    //       JSON.stringify(config, null, 2);
-    //
-    //       return config;
-    //     })
-    // }
+async function getBridge() {
+  const results = await v3.discovery.nupnpSearch();
 
-//light status
-  v3.discovery.nupnpSearch()
-    .then(searchResults => {
-      console.log(searchResults);
-      const hub = searchResults[0].ipaddress;
-      const hubName = searchResults[0].name;
-      return v3.api.createLocal(hub).connect(USERNAME);
-    })
-      .then(api => {
-            // console.log(api);
-            return api.lights.getLight(COLOR_GLOBE);
-            })
-    .then(result => {
-      JSON.stringify(result, null, 2);
-      // console.log(`${result.toStringDetailed()}`);
-      // console.log(result);
-      console.log("Emitting Bat Status: " + result)
-      io.emit("batStatus", `${result}`);
-      res.json(result);
-    })
+  // Results will be an array of bridges that were found
+  console.log(JSON.stringify(results, null, 2));
+}
+
+getBridge();
+serve(req, res, finalhandler(req, res));
+
+//   const LightState = v3.lightStates.LightState;
+//   const USERNAME = process.env.HUE_CLIENT
+//     // The name of the light we wish to retrieve by name
+//     , COLOR_GLOBE = 3
+//     , SENSOR = 10;
+//
+//     // function checkLocal(hub) {
+//     //   v3.discovery.nupnpSearch()
+//     //     .then(searchResults => {
+//     //       return v3.api.createLocal(hub).connect(USERNAME);
+//     //     })
+//     //       .then(api => {
+//     //             // console.log(api);
+//     //             return api.configuration.getConfiguration();
+//     //             })
+//     //     .then(config => {
+//     //       JSON.stringify(config, null, 2);
+//     //
+//     //       return config;
+//     //     })
+//     // }
+//
+// //light status
+//   v3.discovery.nupnpSearch()
+//     .then(searchResults => {
+//       console.log(searchResults);
+//       const hub = searchResults[0].ipaddress;
+//       const hubName = searchResults[0].name;
+//       return v3.api.createLocal(hub).connect(USERNAME);
+//     })
+//       .then(api => {
+//             // console.log(api);
+//             return api.lights.getLight(COLOR_GLOBE);
+//             })
+//     .then(result => {
+//       JSON.stringify(result, null, 2);
+//       // console.log(`${result.toStringDetailed()}`);
+//       // console.log(result);
+//       console.log("Emitting Bat Status: " + result)
+//       io.emit("batStatus", `${result}`);
+//       res.json(result);
+//     })
 });
