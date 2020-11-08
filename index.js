@@ -27,6 +27,7 @@ const client = new Client({
 // inside the public directory
 app.use(express.static(__dirname + '/public'));
 app.listen(PORT, () => console.log(`Listening on port ${ PORT }`));
+console.log(`client ID ${clientID}`)
 
 app.get('/oauth/redirect', (req, res) => {
   // The req.query object has the query params that
