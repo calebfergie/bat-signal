@@ -15,6 +15,15 @@ const clientSecret = process.env.GH_CLIENT_SECRET //ENVVVV
 const PORT = process.env.PORT || 3000;
 var http = require('http').createServer(app);
 
+const { Client } = require('pg');
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 // inside the public directory
 app.use(express.static(__dirname + '/public'));
 app.listen(PORT, () => console.log(`Listening on port ${ PORT }`));

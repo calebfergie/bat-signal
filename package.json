@@ -4,7 +4,7 @@
   "description": "bat signal for lazerhue network",
   "main": "app.js",
   "scripts": {
-    "local": "echo \"Error: no local specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "https://github.com/calebfergie/bat-signal",
   "author": "calebfergie",
@@ -15,10 +15,14 @@
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "node-hue-api": "^4.0.9",
+    "pg": "^8.4.2",
     "socket.io": "^3.0.0",
     "socket.io-client": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
