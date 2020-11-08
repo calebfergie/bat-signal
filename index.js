@@ -64,26 +64,26 @@ app.get('/local', (req, res) => {
     , hueApi = v3.api;
   const model = require('node-hue-api').v3.model;
   const LightState = v3.lightStates.LightState;
-  const USERNAME = '-kMVkteI-VJ2C8zI3fRzoqB4guO7KHBfFnc-n8Lf' //need to put in env
+  const USERNAME = process.env.HUE_CLIENT
     // The name of the light we wish to retrieve by name
     , COLOR_GLOBE = 3
     , SENSOR = 10;
 
-    function checkLocal(hub) {
-      v3.discovery.nupnpSearch()
-        .then(searchResults => {
-          return v3.api.createLocal(hub).connect(USERNAME);
-        })
-          .then(api => {
-                // console.log(api);
-                return api.configuration.getConfiguration();
-                })
-        .then(config => {
-          JSON.stringify(config, null, 2);
-
-          return config;
-        })
-    }
+    // function checkLocal(hub) {
+    //   v3.discovery.nupnpSearch()
+    //     .then(searchResults => {
+    //       return v3.api.createLocal(hub).connect(USERNAME);
+    //     })
+    //       .then(api => {
+    //             // console.log(api);
+    //             return api.configuration.getConfiguration();
+    //             })
+    //     .then(config => {
+    //       JSON.stringify(config, null, 2);
+    //
+    //       return config;
+    //     })
+    // }
 
 //light status
   v3.discovery.nupnpSearch()
