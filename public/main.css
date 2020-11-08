@@ -1,0 +1,211 @@
+
+html, body{
+  font-family:"Lato", "Avenir Next" !important,
+  sans-serif;
+  -webkit-user-select: none !important;
+ }
+
+section.masthead {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: black;
+  color: white;
+  z-index: 1;
+  -webkit-user-select: none !important;
+}
+
+img {
+  position: relative;
+    top: -235px;
+    right: 80;
+  padding: 0;
+  -webkit-user-select: none !important;
+}
+
+/*tap-animation {*/
+/*  -webkit-animation-name: taptutorial;*/ /* Safari 4.0 - 8.0 */
+/*  -webkit-animation-duration: 4s;*/ /* Safari 4.0 - 8.0 */
+/*}*/
+
+/* Safari 4.0 - 8.0 */
+/*@-webkit-keyframes taptutorial {
+  from { margin-left: 0%; width: 100%; }
+  to { margin-left: 0%; width: 100%; }
+}*/
+
+section.masthead p{
+  margin-top: -1800;
+  font-size: 64px;
+  z-index: 1;
+  -webkit-user-select: none !important;
+}
+
+section{
+  padding:100px;
+  -webkit-user-select: none !important;
+}
+
+section h2{
+  padding-top: -80px;
+  font-size:90px;
+  z-index: 1;
+  -webkit-user-select: none !important;
+}
+
+#buttonpage{
+  background-color: black;
+  color: white;
+  -webkit-user-select: none !important;
+}
+
+#buttonpage h2{
+  font-size: 90px;
+  padding-bottom: 50;
+  text-align: center;
+  position: relative;
+    top: -150px;
+  -webkit-user-select: none !important;
+}
+
+#buttonpage p{
+  position: relative;
+    top: 110px;
+  padding-bottom: 400;
+  font-size: 64px;
+  text-align: center;
+  -webkit-user-select: none !important;
+}
+
+#blowText{
+  position: relative;
+    top: -45px;
+  -webkit-user-select: none !important;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  -webkit-user-select: none !important;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+}
+
+div.circleContainer {
+  width: 10em;
+  height: 10em;
+  border-radius: 50%;
+  -webkit-touch-callout: none !important;
+  -webkit-backface-visibility: hidden;
+}
+
+#circle0 {
+  background-color: #fc14ca;
+}
+
+#circle1 {
+  background-color: #ff3f72;
+}
+
+#circle2 {
+  background-color: #f9182f;
+}
+
+#circle3 {
+  background-color: #ff5323;
+}
+
+#circle4 {
+  background-color: #ffeb38;
+}
+
+#circle5 {
+  background-color: #90ff47;
+}
+
+#circle6 {
+  background-color: #00e598;
+}
+
+#circle7 {
+  background-color: #00fff2;
+}
+
+#circle8 {
+  background-color: #3b98f7;
+}
+
+#circle9 {
+  background-color: #ba4cff;
+}
+
+div.circleContainer.tap{
+  border: 4px solid white;
+  -webkit-user-select: none !important;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+    top: -480px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: none !important;
+}
+
+li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+    right: 300px;
+  -webkit-transition: all 2s linear;
+  -moz-transition: all 2s linear;
+  transition: all 2s linear;
+  list-style-type: none;
+  -webkit-user-select: none !important;
+
+}
+
+.btn-outline.active,.btn-outline:active,.btn-outline:focus,.btn-outline:hover{
+  color:#ffffff;
+  border-color:#ffffff;
+  background-color:#ffffff;
+  -webkit-user-select: none !important;
+}
+
+.btn{
+  /* position: relative; */
+    /* top: -1150px; */
+  border-radius: 380px;
+  border: 6px solid green;
+  font-family:"Avenir Next", sans-serif;letter-spacing:6px;
+  text-transform:uppercase;
+  z-index: 1;
+  -webkit-user-select: none !important;
+}
+
+.btn-xl{
+  font-size:48px;
+  padding:48px 78px;
+  marign:48px 78px;
+}
+
+footer{
+  padding:105px;
+  text-align:center;
+  background-color: black;
+  color: white;
+  -webkit-user-select: none !important;
+}
+
+footer p{
+  font-size:26px;
+  margin:40;
+  -webkit-user-select: none !important;
+}
