@@ -57,7 +57,7 @@ app.get('/oauth/redirect', (req, res) => {
 })
 
 
-app.get('/local', (req, res) => {
+app.get('/local/', (req, res) => {
   const io = require('socket.io')(http);
   const v3 = require('node-hue-api').v3
     , discovery = v3.discovery
@@ -88,6 +88,7 @@ app.get('/local', (req, res) => {
 //light status
   v3.discovery.nupnpSearch()
     .then(searchResults => {
+      console.log(searchResults);
       const hub = searchResults[0].ipaddress;
       const hubName = searchResults[0].name;
       return v3.api.createLocal(hub).connect(USERNAME);
@@ -100,9 +101,8 @@ app.get('/local', (req, res) => {
       JSON.stringify(result, null, 2);
       // console.log(`${result.toStringDetailed()}`);
       // console.log(result);
-      console.log("Emitting Bat Status")
+      console.log("Emitting Bat Status: " + result)
       io.emit("batStatus", `${result}`);
       res.json(result);
     })
-
 });
