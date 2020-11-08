@@ -1,48 +1,45 @@
 // Import the express lirbary
 const express = require('express')
-
+// Create a new express application and use
+// the express static middleware, to serve all files
+const app = express();
 // Import the axios library, to make HTTP requests
 const axios = require('axios')
-
 // This is the client ID and client secret that you obtained
 // while registering the application
 const clientID = '532df1b9054087083589'
 const clientSecret = '8db60e07013b7c45b5e6cd80d62c8446caa01494' //ENVVVV
 
-const http = require("http");
-const port = process.env.PORT || 3000;
+const http = require("http").Server(app);
+const PORT = process.env.PORT || 3000;
 
-// const v3 = require('node-hue-api').v3
-//   , discovery = v3.discovery
-//   , hueApi = v3.api;
-// const model = require('node-hue-api').v3.model;
-//
-// const LightState = v3.lightStates.LightState;
-// const USERNAME = '-kMVkteI-VJ2C8zI3fRzoqB4guO7KHBfFnc-n8Lf' //need to put in env
-//   // The name of the light we wish to retrieve by name
-//   , COLOR_GLOBE = 3
-//   , SENSOR = 10;
-
-// Create a new express application and use
-// the express static middleware, to serve all files
 // inside the public directory
-const app = express();
-const server = http.createServer(app);
-const socketIo = require("socket.io");
 app.use(express.static(__dirname + '/public'))
-const io = socketIo(server);
 
+app.set('port', PORT);
 
-io.on('connection', client => {
-  client.on('event', data => {console.log("data")});
-  client.on('disconnect', () => { console.log("dc")});
+// Get request to me from index.html
+app.get('/', (req, res) => {
+  console.log('user enters..')
+  .then((response) => {
+    res.render('index');
+  })
+
+  console.log("App is served on localhost: " + PORT);
+
 });
 
-// io.on("connection", (socket) => {
-//   console.log("New client connected");
-//   if (interval) {
-//     clearInterval(interval);
-//   }
+var io = require('socket.io')(http);
+io.on('user', function(socket) {
+  console.log('user has connected');
+  // On disconnect to socket
+socket.on('disconnect', function() {
+  console.log('user has disconnected');
+})
+socket.on('authWin', function(socket) {
+  console.log('user is IN');
+})
+})
 
 app.get('/oauth/redirect', (req, res) => {
   // The req.query object has the query params that
@@ -82,8 +79,8 @@ app.get('/slave', (req, res) => {
 
     v3.discovery.nupnpSearch()
     .then(searchResults => {
-      const host = searchResults[0].ipaddress;
-      return v3.api.createLocal(host).connect(USERNAME);
+      const hub = searchResults[0].ipaddress;
+      return v3.api.createLocal(hub).connect(USERNAME);
     })
     .then(api => {
           console.log("hell0");
@@ -95,7 +92,7 @@ app.get('/slave', (req, res) => {
       console.log(result);
       // const lightData = document.createTextNode(`Data Dump, ${result.toStringDetailed()}`)
       // document.body.appendChild(lightData);
-      io.emit("batStatus", `${result}`);
+      // io.emit("batStatus", `${result}`);
       res.redirect(`/slave.html`);
 
     })
@@ -125,5 +122,5 @@ function sendToLocal(outputString){
 // app.get('welcome.')
 
 // Start the server on port 3000
-server.listen(port)
+http.listen(PORT)
 // server.listen(port, () => console.log(`Listening on port ${port}`));
