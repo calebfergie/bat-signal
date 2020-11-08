@@ -2,7 +2,6 @@
 // param, available in the browsers "location" global
 const query = window.location.search.substring(1)
 const token = query.split('access_token=')[1]
-// const status = query.split('status=')[1].json
 
 
 // Call the user info API using the fetch browser library
@@ -18,7 +17,5 @@ fetch('https://api.github.com/user', {
   .then(res => {
     // Once we get the response (which has many fields)
     // Documented here: https://developer.github.com/v3/users/#get-the-authenticated-user
-    // Write "Welcome <user name>" to the documents body
-    const nameNode = document.createTextNode(`Welcome, ${res.name}`)
-    document.body.appendChild(nameNode)
-  })
+      document.getElementById("userInfo").innerHTML = "Weclome, " + res.name;
+    })

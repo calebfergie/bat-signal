@@ -1,0 +1,661 @@
+{
+  "_attributes": {
+    "proxyport": {
+      "_name": "proxyport",
+      "_type": "uint16",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": 0,
+      "max": 65535
+    },
+    "proxyaddress": {
+      "_name": "proxyaddress",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "name": {
+      "_name": "name",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "linkbutton": {
+      "_name": "linkbutton",
+      "_type": "boolean",
+      "_optional": true,
+      "_defaultValue": null
+    },
+    "ipaddress": {
+      "_name": "ipaddress",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "netmask": {
+      "_name": "netmask",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "gateway": {
+      "_name": "gateway",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "dhcp": {
+      "_name": "dhcp",
+      "_type": "boolean",
+      "_optional": true,
+      "_defaultValue": null
+    },
+    "timezone": {
+      "_name": "timezone",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "touchlink": {
+      "_name": "touchlink",
+      "_type": "boolean",
+      "_optional": true,
+      "_defaultValue": null
+    },
+    "zigbeechannel": {
+      "_name": "zigbeechannel",
+      "_type": "choice",
+      "_optional": true,
+      "_defaultValue": null,
+      "_allowedValues": [
+        11,
+        15,
+        20,
+        25
+      ]
+    },
+    "UTC": {
+      "_name": "UTC",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "localtime": {
+      "_name": "localtime",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "swupdate2": {
+      "_name": "swupdate2",
+      "_type": "object",
+      "_optional": true,
+      "_defaultValue": null,
+      "_types": [
+        {
+          "_name": "checkforupdate",
+          "_type": "boolean",
+          "_optional": true,
+          "_defaultValue": null
+        },
+        {
+          "_name": "lastchange",
+          "_type": "string",
+          "_optional": true,
+          "_defaultValue": null,
+          "min": null,
+          "max": null
+        },
+        {
+          "_name": "state",
+          "_type": "choice",
+          "_optional": true,
+          "_defaultValue": null,
+          "_allowedValues": [
+            "unknown",
+            "noupdates",
+            "transferring",
+            "anyreadytoinstall",
+            "allreadytoinstall",
+            "installing"
+          ]
+        },
+        {
+          "_name": "autoinstall",
+          "_type": "object",
+          "_optional": true,
+          "_defaultValue": null,
+          "_types": [
+            {
+              "_name": "updatetime",
+              "_type": "string",
+              "_optional": true,
+              "_defaultValue": null,
+              "min": null,
+              "max": null
+            },
+            {
+              "_name": "on",
+              "_type": "boolean",
+              "_optional": true,
+              "_defaultValue": null
+            }
+          ],
+          "_childRequiredKeys": []
+        },
+        {
+          "_name": "bridge",
+          "_type": "object",
+          "_optional": true,
+          "_defaultValue": null,
+          "_types": [
+            {
+              "_name": "state",
+              "_type": "string",
+              "_optional": true,
+              "_defaultValue": null,
+              "min": null,
+              "max": null
+            },
+            {
+              "_name": "lastinstall",
+              "_type": "string",
+              "_optional": true,
+              "_defaultValue": null,
+              "min": null,
+              "max": null
+            }
+          ],
+          "_childRequiredKeys": []
+        }
+      ],
+      "_childRequiredKeys": []
+    },
+    "whitelist": {
+      "_name": "whitelist",
+      "_type": "object",
+      "_optional": true,
+      "_defaultValue": null,
+      "_types": null,
+      "_childRequiredKeys": []
+    },
+    "portalservices": {
+      "_name": "portalservices",
+      "_type": "boolean",
+      "_optional": true,
+      "_defaultValue": null
+    },
+    "portalconnection": {
+      "_name": "portalconnection",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "portalstate": {
+      "_name": "portalstate",
+      "_type": "object",
+      "_optional": true,
+      "_defaultValue": null,
+      "_types": [
+        {
+          "_name": "signedon",
+          "_type": "boolean",
+          "_optional": true,
+          "_defaultValue": null
+        },
+        {
+          "_name": "incoming",
+          "_type": "boolean",
+          "_optional": true,
+          "_defaultValue": null
+        },
+        {
+          "_name": "outgoing",
+          "_type": "boolean",
+          "_optional": true,
+          "_defaultValue": null
+        },
+        {
+          "_name": "communication",
+          "_type": "string",
+          "_optional": true,
+          "_defaultValue": null,
+          "min": null,
+          "max": null
+        }
+      ],
+      "_childRequiredKeys": []
+    },
+    "internetservices": {
+      "_name": "internetservices",
+      "_type": "object",
+      "_optional": true,
+      "_defaultValue": null,
+      "_types": [
+        {
+          "_name": "internet",
+          "_type": "choice",
+          "_optional": true,
+          "_defaultValue": null,
+          "_allowedValues": [
+            "connected",
+            "disconnected"
+          ]
+        },
+        {
+          "_name": "remoteaccess",
+          "_type": "choice",
+          "_optional": true,
+          "_defaultValue": null,
+          "_allowedValues": [
+            "connected",
+            "disconnected"
+          ]
+        },
+        {
+          "_name": "time",
+          "_type": "choice",
+          "_optional": true,
+          "_defaultValue": null,
+          "_allowedValues": [
+            "connected",
+            "disconnected"
+          ]
+        },
+        {
+          "_name": "swupdate",
+          "_type": "choice",
+          "_optional": true,
+          "_defaultValue": null,
+          "_allowedValues": [
+            "connected",
+            "disconnected"
+          ]
+        }
+      ],
+      "_childRequiredKeys": []
+    },
+    "backup": {
+      "_name": "backup",
+      "_type": "object",
+      "_optional": true,
+      "_defaultValue": null,
+      "_types": [
+        {
+          "_name": "status",
+          "_type": "choice",
+          "_optional": true,
+          "_defaultValue": null,
+          "_allowedValues": [
+            "idle",
+            "startmigration",
+            "fileready_disabled",
+            "prepare_restore",
+            "restoring"
+          ]
+        },
+        {
+          "_name": "errorcode",
+          "_type": "uint8",
+          "_optional": true,
+          "_defaultValue": null,
+          "min": 0,
+          "max": 255
+        }
+      ],
+      "_childRequiredKeys": []
+    },
+    "apiversion": {
+      "_name": "apiversion",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "swversion": {
+      "_name": "swversion",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "mac": {
+      "_name": "mac",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "modelid": {
+      "_name": "modelid",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "bridgeid": {
+      "_name": "bridgeid",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "factorynew": {
+      "_name": "factorynew",
+      "_type": "boolean",
+      "_optional": true,
+      "_defaultValue": null
+    },
+    "replacesbridgeid": {
+      "_name": "replacesbridgeid",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "datastoreversion": {
+      "_name": "datastoreversion",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    },
+    "starterkitid": {
+      "_name": "starterkitid",
+      "_type": "string",
+      "_optional": true,
+      "_defaultValue": null,
+      "min": null,
+      "max": null
+    }
+  },
+  "_data": {
+    "name": "Philips hue",
+    "zigbeechannel": 11,
+    "bridgeid": "001788FFFE691826",
+    "mac": "00:17:88:69:18:26",
+    "dhcp": true,
+    "ipaddress": "192.168.0.10",
+    "netmask": "255.255.255.0",
+    "gateway": "192.168.0.1",
+    "proxyaddress": "none",
+    "proxyport": 0,
+    "UTC": "2020-11-08T15:53:01",
+    "localtime": "2020-11-08T10:53:01",
+    "timezone": "America/New_York",
+    "modelid": "BSB002",
+    "datastoreversion": "98",
+    "swversion": "1941056000",
+    "apiversion": "1.41.0",
+    "swupdate2": {
+      "checkforupdate": false,
+      "lastchange": "2020-10-24T17:51:28",
+      "state": "noupdates",
+      "autoinstall": {
+        "updatetime": "T14:00:00",
+        "on": true
+      },
+      "bridge": {
+        "state": "noupdates",
+        "lastinstall": "2020-10-06T18:24:20"
+      }
+    },
+    "linkbutton": false,
+    "portalservices": true,
+    "portalconnection": "connected",
+    "portalstate": {
+      "signedon": true,
+      "incoming": false,
+      "outgoing": true,
+      "communication": "disconnected"
+    },
+    "internetservices": {
+      "internet": "connected",
+      "remoteaccess": "connected",
+      "time": "connected",
+      "swupdate": "connected"
+    },
+    "factorynew": false,
+    "replacesbridgeid": null,
+    "backup": {
+      "status": "idle",
+      "errorcode": 0
+    },
+    "starterkitid": "",
+    "whitelist": {
+      "0b07f6f7-3b69-47b3-8ed0-002894e86f74": {
+        "last use date": "2020-10-24T18:10:55",
+        "create date": "2017-12-31T19:59:17",
+        "name": "hue_ios_app#Caleb’s iPhone X"
+      },
+      "0b4b7444-dca6-445b-86d3-b0b8cb6042f9": {
+        "last use date": "2018-09-20T11:21:32",
+        "create date": "2017-12-31T20:39:17",
+        "name": "Huemote#Caleb’s iPhone X"
+      },
+      "027bc987-71da-4906-8188-086a8f74e0b8": {
+        "last use date": "2020-11-08T11:22:55",
+        "create date": "2017-12-31T21:02:25",
+        "name": "hue-hca-actions-on-google"
+      },
+      "e5f31d9c-16ba-4266-912c-df5092a3c8b5": {
+        "last use date": "2018-02-07T14:44:58",
+        "create date": "2018-02-07T14:18:01",
+        "name": "my_hue_app#iphone peter"
+      },
+      "c8bc7bfe-02c0-4b9f-88e7-6ce654efe5ca": {
+        "last use date": "2019-10-27T04:58:15",
+        "create date": "2018-09-20T11:19:19",
+        "name": "Huemote#muffinfi"
+      },
+      "a9b489c3-fa50-40a5-a67d-daee128cc9e2": {
+        "last use date": "2020-09-20T18:42:31",
+        "create date": "2019-10-20T17:27:58",
+        "name": "Hue 3#Caleb's iPad"
+      },
+      "c7be92c4-2b86-4139-a948-68a0fbb32859": {
+        "last use date": "2019-10-20T17:43:43",
+        "create date": "2019-10-20T17:32:55",
+        "name": "Huemote#Caleb's iPad"
+      },
+      "7e05c964-85ac-43b8-b685-18e45c51f7d4": {
+        "last use date": "2020-10-24T18:09:12",
+        "create date": "2019-10-20T17:47:34",
+        "name": "iLightShow#iPhone"
+      },
+      "6a29fc2f-2060-4b98-a20d-5a4293138edc": {
+        "last use date": "2020-11-07T21:21:49",
+        "create date": "2019-11-06T02:26:48",
+        "name": "iLightShow#iPhone"
+      },
+      "36f3f45e-7b31-4200-80e5-78c0192cb3e7": {
+        "last use date": "2020-02-05T03:21:28",
+        "create date": "2020-02-05T01:43:06",
+        "name": "Light DJ#iPhone"
+      },
+      "b2eafc84-8c28-45dc-998b-24892b1c5ea1": {
+        "last use date": "2020-02-05T13:51:28",
+        "create date": "2020-02-05T13:28:02",
+        "name": "Light DJ#iPad"
+      },
+      "ea5e9a73-509d-4db0-9237-23bcda7df24f": {
+        "last use date": "2020-09-23T12:44:17",
+        "create date": "2020-09-23T02:45:52",
+        "name": "my_hue_app#articuno"
+      },
+      "6186ce10-e21a-454a-b2b1-70a6e3e7a3e1": {
+        "last use date": "2020-10-25T01:13:52",
+        "create date": "2020-10-02T01:15:58",
+        "name": "lazerhue#articuno"
+      },
+      "-kMVkteI-VJ2C8zI3fRzoqB4guO7KHBfFnc-n8Lf": {
+        "last use date": "2020-11-08T15:53:01",
+        "create date": "2020-10-24T21:16:21",
+        "name": "node-hue-api#example-code"
+      }
+    }
+  },
+  "_populationData": {
+    "name": "Philips hue",
+    "zigbeechannel": 11,
+    "bridgeid": "001788FFFE691826",
+    "mac": "00:17:88:69:18:26",
+    "dhcp": true,
+    "ipaddress": "192.168.0.10",
+    "netmask": "255.255.255.0",
+    "gateway": "192.168.0.1",
+    "proxyaddress": "none",
+    "proxyport": 0,
+    "UTC": "2020-11-08T15:53:01",
+    "localtime": "2020-11-08T10:53:01",
+    "timezone": "America/New_York",
+    "modelid": "BSB002",
+    "datastoreversion": "98",
+    "swversion": "1941056000",
+    "apiversion": "1.41.0",
+    "swupdate": {
+      "updatestate": 0,
+      "checkforupdate": false,
+      "devicetypes": {
+        "bridge": false,
+        "lights": [],
+        "sensors": []
+      },
+      "url": "",
+      "text": "",
+      "notify": true
+    },
+    "swupdate2": {
+      "checkforupdate": false,
+      "lastchange": "2020-10-24T17:51:28",
+      "bridge": {
+        "state": "noupdates",
+        "lastinstall": "2020-10-06T18:24:20"
+      },
+      "state": "noupdates",
+      "autoinstall": {
+        "updatetime": "T14:00:00",
+        "on": true
+      }
+    },
+    "linkbutton": false,
+    "portalservices": true,
+    "portalconnection": "connected",
+    "portalstate": {
+      "signedon": true,
+      "incoming": false,
+      "outgoing": true,
+      "communication": "disconnected"
+    },
+    "internetservices": {
+      "internet": "connected",
+      "remoteaccess": "connected",
+      "time": "connected",
+      "swupdate": "connected"
+    },
+    "factorynew": false,
+    "replacesbridgeid": null,
+    "backup": {
+      "status": "idle",
+      "errorcode": 0
+    },
+    "starterkitid": "",
+    "whitelist": {
+      "0b07f6f7-3b69-47b3-8ed0-002894e86f74": {
+        "last use date": "2020-10-24T18:10:55",
+        "create date": "2017-12-31T19:59:17",
+        "name": "hue_ios_app#Caleb’s iPhone X"
+      },
+      "0b4b7444-dca6-445b-86d3-b0b8cb6042f9": {
+        "last use date": "2018-09-20T11:21:32",
+        "create date": "2017-12-31T20:39:17",
+        "name": "Huemote#Caleb’s iPhone X"
+      },
+      "027bc987-71da-4906-8188-086a8f74e0b8": {
+        "last use date": "2020-11-08T11:22:55",
+        "create date": "2017-12-31T21:02:25",
+        "name": "hue-hca-actions-on-google"
+      },
+      "e5f31d9c-16ba-4266-912c-df5092a3c8b5": {
+        "last use date": "2018-02-07T14:44:58",
+        "create date": "2018-02-07T14:18:01",
+        "name": "my_hue_app#iphone peter"
+      },
+      "c8bc7bfe-02c0-4b9f-88e7-6ce654efe5ca": {
+        "last use date": "2019-10-27T04:58:15",
+        "create date": "2018-09-20T11:19:19",
+        "name": "Huemote#muffinfi"
+      },
+      "a9b489c3-fa50-40a5-a67d-daee128cc9e2": {
+        "last use date": "2020-09-20T18:42:31",
+        "create date": "2019-10-20T17:27:58",
+        "name": "Hue 3#Caleb's iPad"
+      },
+      "c7be92c4-2b86-4139-a948-68a0fbb32859": {
+        "last use date": "2019-10-20T17:43:43",
+        "create date": "2019-10-20T17:32:55",
+        "name": "Huemote#Caleb's iPad"
+      },
+      "7e05c964-85ac-43b8-b685-18e45c51f7d4": {
+        "last use date": "2020-10-24T18:09:12",
+        "create date": "2019-10-20T17:47:34",
+        "name": "iLightShow#iPhone"
+      },
+      "6a29fc2f-2060-4b98-a20d-5a4293138edc": {
+        "last use date": "2020-11-07T21:21:49",
+        "create date": "2019-11-06T02:26:48",
+        "name": "iLightShow#iPhone"
+      },
+      "36f3f45e-7b31-4200-80e5-78c0192cb3e7": {
+        "last use date": "2020-02-05T03:21:28",
+        "create date": "2020-02-05T01:43:06",
+        "name": "Light DJ#iPhone"
+      },
+      "b2eafc84-8c28-45dc-998b-24892b1c5ea1": {
+        "last use date": "2020-02-05T13:51:28",
+        "create date": "2020-02-05T13:28:02",
+        "name": "Light DJ#iPad"
+      },
+      "ea5e9a73-509d-4db0-9237-23bcda7df24f": {
+        "last use date": "2020-09-23T12:44:17",
+        "create date": "2020-09-23T02:45:52",
+        "name": "my_hue_app#articuno"
+      },
+      "6186ce10-e21a-454a-b2b1-70a6e3e7a3e1": {
+        "last use date": "2020-10-25T01:13:52",
+        "create date": "2020-10-02T01:15:58",
+        "name": "lazerhue#articuno"
+      },
+      "-kMVkteI-VJ2C8zI3fRzoqB4guO7KHBfFnc-n8Lf": {
+        "last use date": "2020-11-08T15:53:01",
+        "create date": "2020-10-24T21:16:21",
+        "name": "node-hue-api#example-code"
+      }
+    }
+  }
+}

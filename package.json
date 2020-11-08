@@ -1,10 +1,10 @@
 {
-  "name": "node-oauth-example",
+  "name": "bat-signal",
   "version": "1.0.0",
   "description": "An example of oAuth2.0 using node",
   "main": "index.js",
-  "repository": "https://githubb.com/sohamkamani/node-oauth-example",
-  "author": "sohamkamani",
+  "repository": "https://github.com/calebfergie/bat-signal",
+  "author": "calebfergie",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.1",

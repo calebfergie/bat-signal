@@ -10,33 +10,11 @@ const axios = require('axios')
 const clientID = '532df1b9054087083589'
 const clientSecret = '8db60e07013b7c45b5e6cd80d62c8446caa01494' //ENVVVV
 const PORT = process.env.PORT || 3000;
-
-
+var http = require('http').createServer(app);
 
 // inside the public directory
 app.use(express.static(__dirname + '/public'));
-
-const http = require('http').createServer(app);
-var io = require('socket.io')(http);
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  res.redirect(`/welcome.html`);
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-        // res.redirect(`/exit.html`);
-  });
-});
-
-// app.set('port', port);
-
-// Get request to me from index.html
-// app.get('/', (req, res) => {
-//   console.log('user enters..')
-//   .then((response) => {
-//     res.render('index');
-//   })
-//
+app.listen(PORT, () => console.log(`Listening on port ${ PORT }`));
 
 app.get('/oauth/redirect', (req, res) => {
   // The req.query object has the query params that
@@ -57,52 +35,65 @@ app.get('/oauth/redirect', (req, res) => {
     // the response body
     const accessToken = response.data.access_token
     // redirect the user to the welcome page, along with the access token
+    if (accessToken !=undefined){
     res.redirect(`/welcome.html?access_token=${accessToken}`);
-
+} else {
+    serve(req, res, finalhandler(req, res));
+}
   })
 })
 
-app.get('/slave', (req, res) => {
-  // res.redirect(`/slave.html`);
 
+app.get('/local', (req, res) => {
+  const io = require('socket.io')(http);
   const v3 = require('node-hue-api').v3
     , discovery = v3.discovery
     , hueApi = v3.api;
   const model = require('node-hue-api').v3.model;
-
   const LightState = v3.lightStates.LightState;
   const USERNAME = '-kMVkteI-VJ2C8zI3fRzoqB4guO7KHBfFnc-n8Lf' //need to put in env
     // The name of the light we wish to retrieve by name
     , COLOR_GLOBE = 3
     , SENSOR = 10;
 
-    v3.discovery.nupnpSearch()
+
+//light status
+  v3.discovery.nupnpSearch()
     .then(searchResults => {
       const hub = searchResults[0].ipaddress;
+      const hubName = searchResults[0].name;
+      checklocal(hub);
       return v3.api.createLocal(hub).connect(USERNAME);
     })
-    .then(api => {
-          console.log("hell0");
-          return api.lights.getLight(COLOR_GLOBE);
-          })
+      .then(api => {
+            // console.log(api);
+            return api.lights.getLight(COLOR_GLOBE);
+            })
     .then(result => {
-      JSON.stringify(result);
+      JSON.stringify(result, null, 2);
       // console.log(`${result.toStringDetailed()}`);
-      console.log(result);
-      // const lightData = document.createTextNode(`Data Dump, ${result.toStringDetailed()}`)
-      // document.body.appendChild(lightData);
-      // io.emit("batStatus", `${result}`);
-      res.redirect(`/slave.html`);
-
+      // console.log(result);
+      console.log("Emitting Bat Status")
+      io.emit("batStatus", `${result}`);
+      res.json(result);
     })
 
 });
 
-// app.get('/welcome', (req, res) => {
-//   // res.redirect(`/slave.html`);
-//
-//
-//
-//     })
-
-app.listen(PORT, () => console.log(`Listening on port ${ PORT }`));
+function checkLocal(hub) {
+  v3.discovery.nupnpSearch()
+    .then(searchResults => {
+      return v3.api.createLocal(hub).connect(USERNAME);
+    })
+      .then(api => {
+            // console.log(api);
+            return api.configuration.getConfiguration();
+            })
+    .then(result => {
+      JSON.stringify(config, null, 2);
+      // console.log(`${result.toStringDetailed()}`);
+      // console.log(result);
+      console.log(config);
+      return config;
+    })
+}
