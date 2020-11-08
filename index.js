@@ -83,7 +83,8 @@ async function getBridge() {
   console.log(JSON.stringify(results, null, 2));
 }
 
-getBridge();
+// getBridge();
+res.status(404).send("You are not local");
 // serve(req, res, finalhandler(req, res));
 
 //   const LightState = v3.lightStates.LightState;
