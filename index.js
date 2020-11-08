@@ -9,37 +9,34 @@ const axios = require('axios')
 // while registering the application
 const clientID = '532df1b9054087083589'
 const clientSecret = '8db60e07013b7c45b5e6cd80d62c8446caa01494' //ENVVVV
-
-const http = require("http").Server(app);
 const PORT = process.env.PORT || 3000;
 
+
+
 // inside the public directory
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
 
-app.set('port', PORT);
+const http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
-// Get request to me from index.html
-app.get('/', (req, res) => {
-  console.log('user enters..')
-  .then((response) => {
-    res.render('index');
-  })
-
-  console.log("App is served on localhost: " + PORT);
-
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  res.redirect(`/welcome.html`);
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+        // res.redirect(`/exit.html`);
+  });
 });
 
-var io = require('socket.io')(http);
-io.on('user', function(socket) {
-  console.log('user has connected');
-  // On disconnect to socket
-socket.on('disconnect', function() {
-  console.log('user has disconnected');
-})
-socket.on('authWin', function(socket) {
-  console.log('user is IN');
-})
-})
+// app.set('port', port);
+
+// Get request to me from index.html
+// app.get('/', (req, res) => {
+//   console.log('user enters..')
+//   .then((response) => {
+//     res.render('index');
+//   })
+//
 
 app.get('/oauth/redirect', (req, res) => {
   // The req.query object has the query params that
@@ -66,6 +63,8 @@ app.get('/oauth/redirect', (req, res) => {
 })
 
 app.get('/slave', (req, res) => {
+  // res.redirect(`/slave.html`);
+
   const v3 = require('node-hue-api').v3
     , discovery = v3.discovery
     , hueApi = v3.api;
@@ -99,28 +98,11 @@ app.get('/slave', (req, res) => {
 
 });
 
-function sendToLocal(outputString){
-    console.log("sending: " + outputString);
-  // serial.write(outputString+ '\n'); // write the value - add + '\n' if using arduino uno
-}
+// app.get('/welcome', (req, res) => {
+//   // res.redirect(`/slave.html`);
+//
+//
+//
+//     })
 
-
-    // v3.discovery.nupnpSearch()
-    // .then(searchResults => {
-    //   const host = searchResults[0].ipaddress;
-    //   return v3.api.createLocal(host).connect(USERNAME);
-    // })
-    // .then(api => {
-    //   // Get the daylight sensor for the bridge, at id 1
-    //       console.log("hell0");
-    //       return api.lights.getLight(COLOR_GLOBE);
-    //       })
-    // .then(result => {
-    //   console.log(`${result.toStringDetailed()}`);
-    //   socket.emit("batStatus", `${result}`);
-    // })
-// app.get('welcome.')
-
-// Start the server on port 3000
-http.listen(PORT)
-// server.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(PORT, () => console.log(`Listening on port ${ PORT }`));
