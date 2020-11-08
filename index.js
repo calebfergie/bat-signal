@@ -28,6 +28,7 @@ app.use(express.static(__dirname + '/public'));
 app.listen(PORT, () => console.log(`Listening on port ${ PORT }`));
 console.log(`client ID ${clientID}`)
 
+
 app.get('/oauth/redirect', (req, res) => {
   // The req.query object has the query params that
   // were sent to this route. We want the `code` param
@@ -50,8 +51,8 @@ app.get('/oauth/redirect', (req, res) => {
     if (accessToken !=undefined){
     res.redirect(`/welcome.html?access_token=${accessToken}`);
 } else {
-    serve(req, res, finalhandler(req, res));
-}
+    res.json(response);
+  }
   })
 })
 
@@ -60,7 +61,7 @@ app.get('/db', async (req, res) => {
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM test_table');
       const results = { 'results': (result) ? result.rows : null};
-      res.render('pages/db', results );
+      res.json(results);
       client.release();
     } catch (err) {
       console.error(err);
@@ -83,7 +84,7 @@ async function getBridge() {
 }
 
 getBridge();
-serve(req, res, finalhandler(req, res));
+// serve(req, res, finalhandler(req, res));
 
 //   const LightState = v3.lightStates.LightState;
 //   const USERNAME = process.env.HUE_CLIENT
