@@ -8,6 +8,8 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-hue-api": "^4.0.9",
+    "socket.io": "^3.0.0"
   }
 }

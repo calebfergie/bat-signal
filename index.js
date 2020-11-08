@@ -7,13 +7,42 @@ const axios = require('axios')
 // This is the client ID and client secret that you obtained
 // while registering the application
 const clientID = '532df1b9054087083589'
-const clientSecret = '35e322fab9291a6996b66258dedccef97525ed18' //ENVVVV
+const clientSecret = '8db60e07013b7c45b5e6cd80d62c8446caa01494' //ENVVVV
+
+const http = require("http");
+const port = process.env.PORT || 3000;
+
+// const v3 = require('node-hue-api').v3
+//   , discovery = v3.discovery
+//   , hueApi = v3.api;
+// const model = require('node-hue-api').v3.model;
+//
+// const LightState = v3.lightStates.LightState;
+// const USERNAME = '-kMVkteI-VJ2C8zI3fRzoqB4guO7KHBfFnc-n8Lf' //need to put in env
+//   // The name of the light we wish to retrieve by name
+//   , COLOR_GLOBE = 3
+//   , SENSOR = 10;
 
 // Create a new express application and use
 // the express static middleware, to serve all files
 // inside the public directory
-const app = express()
+const app = express();
+const server = http.createServer(app);
+const socketIo = require("socket.io");
 app.use(express.static(__dirname + '/public'))
+const io = socketIo(server);
+
+
+io.on('connection', client => {
+  client.on('event', data => {console.log("data")});
+  client.on('disconnect', () => { console.log("dc")});
+});
+
+// io.on("connection", (socket) => {
+//   console.log("New client connected");
+//   if (interval) {
+//     clearInterval(interval);
+//   }
 
 app.get('/oauth/redirect', (req, res) => {
   // The req.query object has the query params that
@@ -34,9 +63,67 @@ app.get('/oauth/redirect', (req, res) => {
     // the response body
     const accessToken = response.data.access_token
     // redirect the user to the welcome page, along with the access token
-    res.redirect(`/welcome.html?access_token=${accessToken}`)
+    res.redirect(`/welcome.html?access_token=${accessToken}`);
+
   })
 })
 
-// Start the server on port 8080
-app.listen(8080)
+app.get('/slave', (req, res) => {
+  const v3 = require('node-hue-api').v3
+    , discovery = v3.discovery
+    , hueApi = v3.api;
+  const model = require('node-hue-api').v3.model;
+
+  const LightState = v3.lightStates.LightState;
+  const USERNAME = '-kMVkteI-VJ2C8zI3fRzoqB4guO7KHBfFnc-n8Lf' //need to put in env
+    // The name of the light we wish to retrieve by name
+    , COLOR_GLOBE = 3
+    , SENSOR = 10;
+
+    v3.discovery.nupnpSearch()
+    .then(searchResults => {
+      const host = searchResults[0].ipaddress;
+      return v3.api.createLocal(host).connect(USERNAME);
+    })
+    .then(api => {
+          console.log("hell0");
+          return api.lights.getLight(COLOR_GLOBE);
+          })
+    .then(result => {
+      JSON.stringify(result);
+      // console.log(`${result.toStringDetailed()}`);
+      console.log(result);
+      // const lightData = document.createTextNode(`Data Dump, ${result.toStringDetailed()}`)
+      // document.body.appendChild(lightData);
+      io.emit("batStatus", `${result}`);
+      res.redirect(`/slave.html`);
+
+    })
+
+});
+
+function sendToLocal(outputString){
+    console.log("sending: " + outputString);
+  // serial.write(outputString+ '\n'); // write the value - add + '\n' if using arduino uno
+}
+
+
+    // v3.discovery.nupnpSearch()
+    // .then(searchResults => {
+    //   const host = searchResults[0].ipaddress;
+    //   return v3.api.createLocal(host).connect(USERNAME);
+    // })
+    // .then(api => {
+    //   // Get the daylight sensor for the bridge, at id 1
+    //       console.log("hell0");
+    //       return api.lights.getLight(COLOR_GLOBE);
+    //       })
+    // .then(result => {
+    //   console.log(`${result.toStringDetailed()}`);
+    //   socket.emit("batStatus", `${result}`);
+    // })
+// app.get('welcome.')
+
+// Start the server on port 3000
+server.listen(port)
+// server.listen(port, () => console.log(`Listening on port ${port}`));
