@@ -1,14 +1,17 @@
+
 // Import the express lirbary
 const express = require('express')
 // Create a new express application and use
 // the express static middleware, to serve all files
 const app = express();
+const dotenv = require("dotenv");
+dotenv.config();
 // Import the axios library, to make HTTP requests
 const axios = require('axios')
 // This is the client ID and client secret that you obtained
 // while registering the application
-const clientID = '532df1b9054087083589'
-const clientSecret = '8db60e07013b7c45b5e6cd80d62c8446caa01494' //ENVVVV
+const clientID = process.env.GH_CLIENT_ID
+const clientSecret = process.env.GH_CLIENT_SECRET //ENVVVV
 const PORT = process.env.PORT || 3000;
 var http = require('http').createServer(app);
 
