@@ -56,13 +56,27 @@ app.get('/local', (req, res) => {
     , COLOR_GLOBE = 3
     , SENSOR = 10;
 
+    function checkLocal(hub) {
+      v3.discovery.nupnpSearch()
+        .then(searchResults => {
+          return v3.api.createLocal(hub).connect(USERNAME);
+        })
+          .then(api => {
+                // console.log(api);
+                return api.configuration.getConfiguration();
+                })
+        .then(config => {
+          JSON.stringify(config, null, 2);
+
+          return config;
+        })
+    }
 
 //light status
   v3.discovery.nupnpSearch()
     .then(searchResults => {
       const hub = searchResults[0].ipaddress;
       const hubName = searchResults[0].name;
-      checklocal(hub);
       return v3.api.createLocal(hub).connect(USERNAME);
     })
       .then(api => {
@@ -79,21 +93,3 @@ app.get('/local', (req, res) => {
     })
 
 });
-
-function checkLocal(hub) {
-  v3.discovery.nupnpSearch()
-    .then(searchResults => {
-      return v3.api.createLocal(hub).connect(USERNAME);
-    })
-      .then(api => {
-            // console.log(api);
-            return api.configuration.getConfiguration();
-            })
-    .then(result => {
-      JSON.stringify(config, null, 2);
-      // console.log(`${result.toStringDetailed()}`);
-      // console.log(result);
-      console.log(config);
-      return config;
-    })
-}
