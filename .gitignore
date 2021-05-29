@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/node,react,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,react,macos
 
+config.js
+
 ### macOS ###
 # General
 .DS_Store
